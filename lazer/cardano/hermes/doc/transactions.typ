@@ -296,7 +296,7 @@
       address: "order book address",
       value: (
         "Order Control token": "1",
-        "BUY/SELL": `M`,
+        "UP/DOWN": `M`,
       ),
       datum: (
         owner: `pkh`,
@@ -329,7 +329,7 @@
       datum: (
         owner: `pkh`,
         direction: "Up|Down",
-        operation: `Sell|Down`,
+        operation: `Sell|Buy`,
         price: `P`,
       ),
       redeemer: ("CompleteFill"),

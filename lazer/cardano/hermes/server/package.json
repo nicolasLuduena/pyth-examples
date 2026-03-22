@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
+    "postinstall": "node scripts/patch-libsodium-esm.mjs",
     "api": "tsx watch src/index.ts",
     "matcher": "tsx watch src/matcher.ts",
     "build": "tsc",

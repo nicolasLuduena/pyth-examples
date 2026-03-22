@@ -3,27 +3,6 @@ import { PythLazerClient } from "@pythnetwork/pyth-lazer-sdk";
 import { createMarket as _createMarket } from "../market.js";
 import type { Market } from "../types.js";
 
-// TODO: Replace with on-chain reads/writes:
-//
-//   export async function createMarket(): Promise<Market> {
-//     const strikePrice = await pythOracle.getPrice(BTC_FEED_ID) // on-chain oracle read
-//     const tx = await contract.createMarket(ethers.parseEther(strikePrice.toString()))
-//     await tx.wait()
-//     return getCurrentMarket()
-//   }
-//
-//   export async function getCurrentMarket(): Promise<Market> {
-//     const id = await contract.currentMarketId()
-//     const m  = await contract.markets(id)
-//     return {
-//       id:          id.toString(),
-//       startTime:   Number(m.startTime) * 1000,
-//       endTime:     Number(m.endTime) * 1000,
-//       strikePrice: Number(m.strikePrice) / 1e18,
-//     }
-//   }
-
-// TODO: confirm BTC/USD feed ID — same as btcPrice.ts stream
 const BTC_FEED_ID = 1;
 
 async function fetchBtcPrice(): Promise<number> {
