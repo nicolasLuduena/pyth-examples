@@ -7,12 +7,15 @@ use hermes_types.{
   Cancel, Fill, Match, OrderDatum, OrderMintRedeemer, OrderRedeemer,
 }
 use subvalidators/common_checks.{validate_only_burn}
-use subvalidators/order_checks.{validate_cancel, validate_fill, validate_match}
+use subvalidators/order_checks.{
+  validate_cancel, validate_create_order, validate_fill, validate_match,
+}
 
 validator order(market_script_hash: ScriptHash) {
   mint(redeemer: OrderMintRedeemer, policy_id: PolicyId, self: Transaction) {
     when redeemer is {
-      OrderMintRedeemer.Mint -> todo
+      OrderMintRedeemer.Mint(seed) ->
+        validate_create_order(seed, market_script_hash, policy_id, self)
       OrderMintRedeemer.Burn -> validate_only_burn(policy_id, self)
     }
   }
@@ -38,7 +41,7 @@ validator order(market_script_hash: ScriptHash) {
 
     when redeemer is {
       Cancel -> validate_cancel(datum, own_script_hash, i_val, self)
-      Match -> validate_match()
+      Match -> validate_match(own_script_hash, market_script_hash, self)
       Fill(filled_amount) ->
         validate_fill(
           datum,

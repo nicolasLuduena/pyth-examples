@@ -10,7 +10,8 @@ use hermes_types.{
 use subvalidators/common_checks.{validate_only_burn}
 use subvalidators/market_checks.{
   validate_claim_losings, validate_claim_winnings, validate_close_market,
-  validate_init_market, validate_process_match, validate_record_final_price,
+  validate_init_market, validate_mint_position_tokens, validate_process_match,
+  validate_record_final_price,
 }
 
 validator market(start_time: PosixTime, pyth_policy: PolicyId) {
@@ -19,7 +20,7 @@ validator market(start_time: PosixTime, pyth_policy: PolicyId) {
       MintControlToken ->
         validate_init_market(pyth_policy, start_time, policy_id, self)
       BurnControlToken -> validate_only_burn(policy_id, self)
-      MintPositionToken(_dir) -> todo
+      MintPositionToken(_dir) -> validate_mint_position_tokens(policy_id, self)
       BurnPositionToken(_dir) -> validate_only_burn(policy_id, self)
     }
   }
@@ -70,7 +71,8 @@ validator market(start_time: PosixTime, pyth_policy: PolicyId) {
           self,
         )
       CloseMarket -> validate_close_market(own_script_hash, datum, self)
-      ProcessMatch -> validate_process_match()
+      ProcessMatch ->
+        validate_process_match(datum, i_val, own_script_hash, self)
     }
   }
 

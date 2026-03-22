@@ -2,11 +2,14 @@ use aiken/collection/dict.{to_pairs}
 use aiken/collection/list
 use cardano/address.{Script}
 use cardano/assets.{
-  PolicyId, Value, from_asset, from_lovelace, match, merge, negate, tokens,
+  PolicyId, Value, from_asset, from_lovelace, match, merge, negate, quantity_of,
+  tokens,
 }
-use cardano/transaction.{InlineDatum, Output, Transaction}
+use cardano/transaction.{InlineDatum, Input, Output, Spend, Transaction}
 use contants.{control_token_tn, down_tn, five_minutes, up_tn}
-use hermes_types.{MarketDatum, PosixTime, Price}
+use hermes_types.{
+  MarketDatum, MarketRedeemer, PosixTime, Price, ProcessMatch,
+}
 use subvalidators/common_checks.{read_btc_usd_price}
 
 pub fn validate_init_market(
@@ -221,7 +224,6 @@ pub fn validate_close_market(
   let Transaction { mint, .. } = tx
   // Burning the control token in this policy
   expect [Pair(minted_tn, -1)] = tokens(mint, own_policy) |> to_pairs()
-
   and {
     minted_tn == control_token_tn,
     own_datum.remaining_shares == 0,
@@ -229,8 +231,97 @@ pub fn validate_close_market(
   // Burned control token
 }
 
-pub fn validate_process_match() -> Bool {
-  todo
+pub fn validate_process_match(
+  own_datum: MarketDatum,
+  own_value: Value,
+  own_policy: PolicyId,
+  tx: Transaction,
+) -> Bool {
+  let Transaction { outputs, mint, .. } = tx
+
+  expect [own_output] =
+    list.filter(
+      outputs,
+      fn(o) { o.address.payment_credential == Script(own_policy) },
+    )
+
+  expect Output { value: o_value, datum: InlineDatum(o_raw_datum), .. } =
+    own_output
+
+  expect o_datum: MarketDatum = o_raw_datum
+
+  let up_minted = quantity_of(mint, own_policy, up_tn)
+  let down_minted = quantity_of(mint, own_policy, down_tn)
+
+  // Datum is updated by the amount of up and down tokens minted
+  let matched_amount = up_minted
+
+  // Value is increased by the matched lovelace (1-to-1 with token scale in matching context)
+  let matched_lovelace = matched_amount
+  let expected_value = merge(own_value, from_lovelace(matched_lovelace))
+
+  and {
+    up_minted > 0,
+    up_minted == down_minted,
+    // Value is increased by matched lovelace AND control token is not stolen
+    // (`expected_value` includes `own_value` which holds the control token)
+    match(o_value, expected_value, >=),
+    // Datum keeps prices and updates shares
+    o_datum.start_price == own_datum.start_price,
+    o_datum.end_price == own_datum.end_price,
+    // Datum is updated by the amount of up and down tokens minted
+    o_datum.remaining_shares == own_datum.remaining_shares + matched_amount,
+  }
+}
+
+pub fn validate_mint_position_tokens(
+  own_policy: PolicyId,
+  tx: Transaction,
+) -> Bool {
+  let Transaction { inputs, mint, redeemers, .. } = tx
+
+  // Validate that the same amount of up and down tokens got minted
+  let own_minted = tokens(mint, own_policy) |> to_pairs()
+  let up_minted = quantity_of(mint, own_policy, up_tn)
+  let down_minted = quantity_of(mint, own_policy, down_tn)
+
+  let valid_mints = and {
+      up_minted > 0,
+      up_minted == down_minted,
+    }
+
+  // Valiates that no other token with other name is minted
+  let no_extra_mints = list.length(own_minted) == 2
+
+  expect Some(market_input) =
+    list.find(
+      inputs,
+      fn(i) { i.output.address.payment_credential == Script(own_policy) },
+    )
+
+  // Validates that the market utxo has the control token
+  let has_control_token =
+    quantity_of(market_input.output.value, own_policy, control_token_tn) >= 1
+
+  // Validate that a market utxo is consumed with match redeemer
+  expect Some(Pair(_, raw_redeemer)) =
+    list.find(
+      redeemers,
+      fn(pair) {
+        let Pair(purpose, _) = pair
+        purpose == Spend(market_input.output_reference)
+      },
+    )
+
+  expect market_redeemer: MarketRedeemer = raw_redeemer
+  let is_match_redeemer = market_redeemer == ProcessMatch
+
+  and {
+    valid_mints,
+    no_extra_mints,
+    has_control_token,
+    is_match_redeemer,
+  }
 }
 
 pub fn compare_prices(price1: Price, price2: Price) -> Ordering {

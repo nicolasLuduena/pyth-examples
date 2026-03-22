@@ -1,4 +1,5 @@
 use aiken/crypto.{VerificationKeyHash}
+use cardano/transaction.{OutputReference}
 
 pub type PosixTime =
   Int
@@ -33,7 +34,7 @@ pub type OrderRedeemer {
 }
 
 pub type OrderMintRedeemer {
-  Mint
+  Mint(OutputReference)
   Burn
 }
 
