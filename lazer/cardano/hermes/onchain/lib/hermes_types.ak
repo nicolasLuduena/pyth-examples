@@ -23,12 +23,13 @@ pub type OrderDatum {
   operation: Operation,
   price: Price,
   owner: VerificationKeyHash,
+  expected_tokens: Int,
 }
 
 pub type OrderRedeemer {
   Cancel
   Match
-  Fill
+  Fill(Int)
 }
 
 pub type OrderMintRedeemer {
@@ -39,14 +40,15 @@ pub type OrderMintRedeemer {
 pub type MarketDatum {
   start_price: Price,
   end_price: Option<Price>,
-  ramaining_shares: Int,
+  remaining_shares: Int,
 }
 
 pub type MarketRedeemer {
   RecordFinalPrice
-  ClaimWinnings
-  ClaimLosings
+  ClaimWinnings(Int)
+  ClaimLosings(Int)
   CloseMarket
+  ProcessMatch
 }
 
 pub type MarketMintRedeemer {
