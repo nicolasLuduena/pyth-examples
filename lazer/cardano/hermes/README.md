@@ -11,3 +11,6 @@ Contact: luduena.nicolas.victorio@gmail.com
 
 Hermes market is a proof of concept integration of Pyth oracle information with Cardano's bleeding edge L2 [Hydra](https://hydra.family/head-protocol) that allows for real time bets on BTC price. Therefore truly giving an edge over a simple 5 minute market with up to 2 minute block finality in the L1 on the worst cases. Even on mainnet with high congestion scenarios, block confirmation is not guaranteed after several days.
 
+## Original Repository
+
+The origial repository for this project can be found here: https://github.com/nicolasLuduena/pythathon
