@@ -1,0 +1,387 @@
+{
+  "preamble": {
+    "title": "los-hydra-boys/hermes",
+    "description": "Aiken contracts for project 'los-hydra-boys/hermes'",
+    "version": "0.0.0",
+    "plutusVersion": "v3",
+    "compiler": {
+      "name": "Aiken",
+      "version": "v1.1.21+42babe5"
+    },
+    "license": "Apache-2.0"
+  },
+  "validators": [
+    {
+      "title": "market.market.mint",
+      "redeemer": {
+        "title": "_redeemer",
+        "schema": {
+          "$ref": "#/definitions/types~1MarketMintRedeemer"
+        }
+      },
+      "parameters": [
+        {
+          "title": "start_time",
+          "schema": {
+            "$ref": "#/definitions/types~1PosixTime"
+          }
+        }
+      ],
+      "compiledCode": "590198010100229800aba2aba1aab9faab9eaab9dab9a9bad0024888888966002646465300130063754003370e90014dc3a400130090039804801244444b300130030058cc004dd7180718061baa00691192cc004c0180062b3001300f37540070028b20208acc004c01c0062b3001300f37540070028b20208b201a4034601a6ea800a294660166ea80052222598009803800c56600260206ea80160051640451598009804000c56600260206ea801600516404515980099b8748010006264b300130140018998021809800801c5901218081baa0058acc004cdc3a400c00313259800980a000c4cc010c04c00400e2c8090c040dd5002c5900e201c403880711598009802002c4ca6002601e003300f301000198061baa0028a514888966002601000515980098089baa006800c590124566002601200515980098089baa006800c59012456600266e1d20040028acc004c044dd500340062c80922b30013370e9003001456600260226ea801a00316404916403c807900f201e18061baa0068b2014402830083009001300800130043754011149a26cac80101",
+      "hash": "3862f8828bdd94c1dea68a29b27a286bad414cfc40ff5793c874d2dd"
+    },
+    {
+      "title": "market.market.spend",
+      "datum": {
+        "title": "_datum",
+        "schema": {
+          "$ref": "#/definitions/types~1MarketDatum"
+        }
+      },
+      "redeemer": {
+        "title": "_redeemer",
+        "schema": {
+          "$ref": "#/definitions/types~1MarketRedeemer"
+        }
+      },
+      "parameters": [
+        {
+          "title": "start_time",
+          "schema": {
+            "$ref": "#/definitions/types~1PosixTime"
+          }
+        }
+      ],
+      "compiledCode": "590198010100229800aba2aba1aab9faab9eaab9dab9a9bad0024888888966002646465300130063754003370e90014dc3a400130090039804801244444b300130030058cc004dd7180718061baa00691192cc004c0180062b3001300f37540070028b20208acc004c01c0062b3001300f37540070028b20208b201a4034601a6ea800a294660166ea80052222598009803800c56600260206ea80160051640451598009804000c56600260206ea801600516404515980099b8748010006264b300130140018998021809800801c5901218081baa0058acc004cdc3a400c00313259800980a000c4cc010c04c00400e2c8090c040dd5002c5900e201c403880711598009802002c4ca6002601e003300f301000198061baa0028a514888966002601000515980098089baa006800c590124566002601200515980098089baa006800c59012456600266e1d20040028acc004c044dd500340062c80922b30013370e9003001456600260226ea801a00316404916403c807900f201e18061baa0068b2014402830083009001300800130043754011149a26cac80101",
+      "hash": "3862f8828bdd94c1dea68a29b27a286bad414cfc40ff5793c874d2dd"
+    },
+    {
+      "title": "market.market.else",
+      "redeemer": {
+        "schema": {}
+      },
+      "parameters": [
+        {
+          "title": "start_time",
+          "schema": {
+            "$ref": "#/definitions/types~1PosixTime"
+          }
+        }
+      ],
+      "compiledCode": "590198010100229800aba2aba1aab9faab9eaab9dab9a9bad0024888888966002646465300130063754003370e90014dc3a400130090039804801244444b300130030058cc004dd7180718061baa00691192cc004c0180062b3001300f37540070028b20208acc004c01c0062b3001300f37540070028b20208b201a4034601a6ea800a294660166ea80052222598009803800c56600260206ea80160051640451598009804000c56600260206ea801600516404515980099b8748010006264b300130140018998021809800801c5901218081baa0058acc004cdc3a400c00313259800980a000c4cc010c04c00400e2c8090c040dd5002c5900e201c403880711598009802002c4ca6002601e003300f301000198061baa0028a514888966002601000515980098089baa006800c590124566002601200515980098089baa006800c59012456600266e1d20040028acc004c044dd500340062c80922b30013370e9003001456600260226ea801a00316404916403c807900f201e18061baa0068b2014402830083009001300800130043754011149a26cac80101",
+      "hash": "3862f8828bdd94c1dea68a29b27a286bad414cfc40ff5793c874d2dd"
+    },
+    {
+      "title": "order.order.mint",
+      "redeemer": {
+        "title": "_redeemer",
+        "schema": {
+          "$ref": "#/definitions/types~1OrderMintRedeemer"
+        }
+      },
+      "parameters": [
+        {
+          "title": "market_script_hash",
+          "schema": {
+            "$ref": "#/definitions/aiken~1crypto~1ScriptHash"
+          }
+        }
+      ],
+      "compiledCode": "590104010100229800aba2aba1aab9faab9eaab9dab9a9bae0024888888966002646465300130063754003370e90014dc3a400130090039804801244444b300130030058cc004dd7180718061baa0068a5198059baa001488966002600c00315980098079baa0048014590104566002600e00315980098079baa00480145901045900d201a4566002600800b13298009807800cc03cc04000660186ea800a29452222598009804001456600260226ea801a0031640491598009804801456600260226ea801a00316404915980099b874801000a2b30013011375400d0018b20248b201e403c807860186ea801a2c805100a0c020c024004c020004c010dd5004452689b2b20041",
+      "hash": "d2a6f0f4c336bb26a3f5fb0dfaa26d1af8ec98211a91920d43204bfe"
+    },
+    {
+      "title": "order.order.spend",
+      "datum": {
+        "title": "_datum",
+        "schema": {
+          "$ref": "#/definitions/types~1OrderDatum"
+        }
+      },
+      "redeemer": {
+        "title": "_redeemer",
+        "schema": {
+          "$ref": "#/definitions/types~1OrderRedeemer"
+        }
+      },
+      "parameters": [
+        {
+          "title": "market_script_hash",
+          "schema": {
+            "$ref": "#/definitions/aiken~1crypto~1ScriptHash"
+          }
+        }
+      ],
+      "compiledCode": "590104010100229800aba2aba1aab9faab9eaab9dab9a9bae0024888888966002646465300130063754003370e90014dc3a400130090039804801244444b300130030058cc004dd7180718061baa0068a5198059baa001488966002600c00315980098079baa0048014590104566002600e00315980098079baa00480145901045900d201a4566002600800b13298009807800cc03cc04000660186ea800a29452222598009804001456600260226ea801a0031640491598009804801456600260226ea801a00316404915980099b874801000a2b30013011375400d0018b20248b201e403c807860186ea801a2c805100a0c020c024004c020004c010dd5004452689b2b20041",
+      "hash": "d2a6f0f4c336bb26a3f5fb0dfaa26d1af8ec98211a91920d43204bfe"
+    },
+    {
+      "title": "order.order.else",
+      "redeemer": {
+        "schema": {}
+      },
+      "parameters": [
+        {
+          "title": "market_script_hash",
+          "schema": {
+            "$ref": "#/definitions/aiken~1crypto~1ScriptHash"
+          }
+        }
+      ],
+      "compiledCode": "590104010100229800aba2aba1aab9faab9eaab9dab9a9bae0024888888966002646465300130063754003370e90014dc3a400130090039804801244444b300130030058cc004dd7180718061baa0068a5198059baa001488966002600c00315980098079baa0048014590104566002600e00315980098079baa00480145901045900d201a4566002600800b13298009807800cc03cc04000660186ea800a29452222598009804001456600260226ea801a0031640491598009804801456600260226ea801a00316404915980099b874801000a2b30013011375400d0018b20248b201e403c807860186ea801a2c805100a0c020c024004c020004c010dd5004452689b2b20041",
+      "hash": "d2a6f0f4c336bb26a3f5fb0dfaa26d1af8ec98211a91920d43204bfe"
+    }
+  ],
+  "definitions": {
+    "Int": {
+      "dataType": "integer"
+    },
+    "Option<types/Price>": {
+      "title": "Option",
+      "anyOf": [
+        {
+          "title": "Some",
+          "description": "An optional value.",
+          "dataType": "constructor",
+          "index": 0,
+          "fields": [
+            {
+              "$ref": "#/definitions/types~1Price"
+            }
+          ]
+        },
+        {
+          "title": "None",
+          "description": "Nothing.",
+          "dataType": "constructor",
+          "index": 1,
+          "fields": []
+        }
+      ]
+    },
+    "aiken/crypto/ScriptHash": {
+      "title": "ScriptHash",
+      "dataType": "bytes"
+    },
+    "aiken/crypto/VerificationKeyHash": {
+      "title": "VerificationKeyHash",
+      "dataType": "bytes"
+    },
+    "types/Direction": {
+      "title": "Direction",
+      "anyOf": [
+        {
+          "title": "Up",
+          "dataType": "constructor",
+          "index": 0,
+          "fields": []
+        },
+        {
+          "title": "Down",
+          "dataType": "constructor",
+          "index": 1,
+          "fields": []
+        }
+      ]
+    },
+    "types/MarketDatum": {
+      "title": "MarketDatum",
+      "anyOf": [
+        {
+          "title": "MarketDatum",
+          "dataType": "constructor",
+          "index": 0,
+          "fields": [
+            {
+              "title": "start_price",
+              "$ref": "#/definitions/types~1Price"
+            },
+            {
+              "title": "end_price",
+              "$ref": "#/definitions/Option<types~1Price>"
+            },
+            {
+              "title": "ramaining_shares",
+              "$ref": "#/definitions/Int"
+            }
+          ]
+        }
+      ]
+    },
+    "types/MarketMintRedeemer": {
+      "title": "MarketMintRedeemer",
+      "anyOf": [
+        {
+          "title": "MintControlToken",
+          "dataType": "constructor",
+          "index": 0,
+          "fields": []
+        },
+        {
+          "title": "BurnControlToken",
+          "dataType": "constructor",
+          "index": 1,
+          "fields": []
+        },
+        {
+          "title": "MintPositionToken",
+          "dataType": "constructor",
+          "index": 2,
+          "fields": [
+            {
+              "$ref": "#/definitions/types~1Direction"
+            }
+          ]
+        },
+        {
+          "title": "BurnPositionToken",
+          "dataType": "constructor",
+          "index": 3,
+          "fields": [
+            {
+              "$ref": "#/definitions/types~1Direction"
+            }
+          ]
+        }
+      ]
+    },
+    "types/MarketRedeemer": {
+      "title": "MarketRedeemer",
+      "anyOf": [
+        {
+          "title": "RecordFinalPrice",
+          "dataType": "constructor",
+          "index": 0,
+          "fields": []
+        },
+        {
+          "title": "ClaimWinnings",
+          "dataType": "constructor",
+          "index": 1,
+          "fields": []
+        },
+        {
+          "title": "ClaimLosings",
+          "dataType": "constructor",
+          "index": 2,
+          "fields": []
+        },
+        {
+          "title": "CloseMarket",
+          "dataType": "constructor",
+          "index": 3,
+          "fields": []
+        }
+      ]
+    },
+    "types/Operation": {
+      "title": "Operation",
+      "anyOf": [
+        {
+          "title": "Buy",
+          "dataType": "constructor",
+          "index": 0,
+          "fields": []
+        },
+        {
+          "title": "Sell",
+          "dataType": "constructor",
+          "index": 1,
+          "fields": []
+        }
+      ]
+    },
+    "types/OrderDatum": {
+      "title": "OrderDatum",
+      "anyOf": [
+        {
+          "title": "OrderDatum",
+          "dataType": "constructor",
+          "index": 0,
+          "fields": [
+            {
+              "title": "direction",
+              "$ref": "#/definitions/types~1Direction"
+            },
+            {
+              "title": "operation",
+              "$ref": "#/definitions/types~1Operation"
+            },
+            {
+              "title": "price",
+              "$ref": "#/definitions/types~1Price"
+            },
+            {
+              "title": "owner",
+              "$ref": "#/definitions/aiken~1crypto~1VerificationKeyHash"
+            }
+          ]
+        }
+      ]
+    },
+    "types/OrderMintRedeemer": {
+      "title": "OrderMintRedeemer",
+      "anyOf": [
+        {
+          "title": "Mint",
+          "dataType": "constructor",
+          "index": 0,
+          "fields": []
+        },
+        {
+          "title": "Burn",
+          "dataType": "constructor",
+          "index": 1,
+          "fields": []
+        }
+      ]
+    },
+    "types/OrderRedeemer": {
+      "title": "OrderRedeemer",
+      "anyOf": [
+        {
+          "title": "Cancel",
+          "dataType": "constructor",
+          "index": 0,
+          "fields": []
+        },
+        {
+          "title": "Match",
+          "dataType": "constructor",
+          "index": 1,
+          "fields": []
+        },
+        {
+          "title": "Fill",
+          "dataType": "constructor",
+          "index": 2,
+          "fields": []
+        }
+      ]
+    },
+    "types/PosixTime": {
+      "title": "PosixTime",
+      "dataType": "integer"
+    },
+    "types/Price": {
+      "title": "Price",
+      "anyOf": [
+        {
+          "title": "Price",
+          "dataType": "constructor",
+          "index": 0,
+          "fields": [
+            {
+              "title": "numerator",
+              "$ref": "#/definitions/Int"
+            },
+            {
+              "title": "denominator",
+              "$ref": "#/definitions/Int"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
